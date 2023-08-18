@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shortened URL</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <header class="container-fluid p-5">
+        <h1 class="header">Congratulations! Your link has been officially cat-approved and shortened to perfection.
+        </h1>
+    </header>
+
+    <main class="container mt-6" id="shortened">
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="{{ cat_picture }}" alt="Random Cat Picture" class="cat-picture">
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-md-8">
+                        <a href="{{ url_for('redirect_to_url', shortcode_or_alias=shortcode) }}"
+                            aria-label="Shortened URL" class="shortened-url" title="Click to redirect">
+                            <span aria-hidden="true">{{ config.BASE_URL }}</span><span>{{ shortcode }}</span>
+
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <button id="copy-button" class="btn button" title="Click to Copy the URL">Copy</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mt-2">
+                        <p class="description">We hope it brings a smile to your face, just like this cute cat picture.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="container-fluid p-5">
+        <h3>Thanks for using our link shortener and have a great day! </h3>
+    </div>
+
+    <footer class="bg-light py-2 text-center fixed-bottom">
+        GetShorty, 2023. Contact us: maryia.brauer@va.lv
+    </footer>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var copyButton = document.getElementById('copy-button');
+        copyButton.addEventListener('click', function () {
+            var shortenedUrl = document.querySelector('.shortened-url');
+            var range = document.createRange();
+            range.selectNode(shortenedUrl);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+
+            // Update button text momentarily to indicate successful copy
+            copyButton.innerHTML = 'Copied!';
+            setTimeout(function () {
+                copyButton.innerHTML = 'Copy';
+            }, 1500);
+        });
+    });
+</script>
+
+</html>

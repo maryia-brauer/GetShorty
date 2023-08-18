@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>URL Shortener</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <header class="container-fluid overlay">
+        <img src="{{ url_for('static', filename='images/banner-image.jpg') }}" alt="Banner Image">
+        <div class="centered-text">
+            <h1>Get Shorty With Our Purr-fectly Awesome URL Shortener!</h1>
+        </div>
+
+    </header>
+
+    <main class="container-fluid mt-6" id="content">
+        <form action="{{ url_for('shorten') }}" method="POST">
+            <div class="mb-3">
+                <label for="url" class="form-label">Got a long URL? Just drop it here like a hot potato, and we'll
+                    take
+                    care of the rest.
+                    <span class="text-colour">Meow!</span>
+                    <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="url" name="url" required
+                    title="Enter the URL you want to shorten">
+            </div>
+            <div class="mb-3">
+                <label for="alias" class="form-label">Your alias (optional):</label>
+                {% if error %}
+                <div class="error-message">{{ error }}</div>
+                {% endif %}
+                <input type="text" class="form-control" id="alias" name="alias"
+                    title="Enter a custom alias for your URL">
+            </div>
+            <button type="submit" class="btn btn-lg button">Shorten URL</button>
+        </form>
+        </div>
+        <footer class="bg-light py-2 text-center fixed-bottom">
+            GetShorty, 2023. Contact us: maryia.brauer@va.lv
+        </footer>
+</body>
+
+</html>
